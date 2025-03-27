@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LightRides | Rides brought LIGHT</title>
+    <title>LightRides | Rides brought to LIGHT!</title>
     <link rel="icon" href="LightRides circle logo.png" type="image/png">
     <style>
         body {
@@ -32,6 +32,10 @@
             margin-bottom: 20px;
         }
         
+        .button-container {
+            margin: 15px 0;
+        }
+        
         /* Etsy button styling */
         .etsy-btn {
             display: inline-block;
@@ -42,10 +46,28 @@
             border-radius: 5px;
             font-weight: bold;
             transition: background-color 0.3s;
+            margin: 0 10px;
+        }
+        
+        /* YouTube button styling */
+        .youtube-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ff0000;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin: 0 10px;
         }
         
         .etsy-btn:hover {
             background-color: #d84b0e;
+        }
+        
+        .youtube-btn:hover {
+            background-color: #cc0000;
         }
     </style>
 </head>
@@ -53,10 +75,15 @@
     <!-- Site Banner Image -->
     <img src="lightrides site banner.png" alt="LightRides" class="site-banner">
     
-    <!-- Etsy Store Button -->
-    <a href="https://amusementlabs.etsy.com" target="_blank" rel="noopener noreferrer" class="etsy-btn">
-        Etsy Store
-    </a>
+    <!-- Button Container -->
+    <div class="button-container">
+        <a href="https://amusementlabs.etsy.com" target="_blank" rel="noopener noreferrer" class="etsy-btn">
+            Etsy Store
+        </a>
+        <a href="https://www.youtube.com/amusementlabs" target="_blank" rel="noopener noreferrer" class="youtube-btn">
+            YouTube
+        </a>
+    </div>
     
     <!-- PDF Viewer -->
     <div class="document-window">
@@ -79,7 +106,7 @@
                 this.style.display = 'none';
                 const fallbackTitle = document.createElement('h1');
                 fallbackTitle.textContent = 'LightRides Brochure';
-                document.body.insertBefore(fallbackTitle, document.querySelector('.etsy-btn'));
+                document.body.insertBefore(fallbackTitle, document.querySelector('.button-container'));
             };
             
             // Check if PDF loaded successfully
