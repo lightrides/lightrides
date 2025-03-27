@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LightRides Brochure Viewer</title>
-    <!-- Favicon (added here) -->
+    <!-- Favicon -->
     <link rel="icon" href="LightRides circle logo.png" type="image/png">
     <style>
         body {
@@ -38,42 +38,47 @@
             border: none;
         }
         
-        .download-btn {
+        /* Updated button styling for Etsy link */
+        .etsy-btn {
             display: inline-block;
             margin-top: 15px;
             padding: 10px 20px;
-            background-color: #333333;
+            background-color: #f16521; /* Etsy's brand orange */
             color: #ffffff;
             text-decoration: none;
-            border: 1px solid #666666;
+            border: none;
             border-radius: 5px;
             font-size: 16px;
+            font-weight: bold;
             transition: background-color 0.3s;
         }
         
-        .download-btn:hover {
-            background-color: #555555;
+        .etsy-btn:hover {
+            background-color: #d84b0e; /* Darker orange on hover */
         }
     </style>
 </head>
 <body>
     <h1>LightRides Brochure</h1>
     
-    <a href="LightRides - Brochure.pdf" download class="download-btn">
-        Download Brochure (PDF)
+    <!-- Etsy Store button (opens in new tab) -->
+    <a href="https://amusementlabs.etsy.com" target="_blank" rel="noopener noreferrer" class="etsy-btn">
+        Etsy Store
     </a>
     
+    <!-- PDF viewer window -->
     <div class="document-window">
         <embed src="LightRides - Brochure.pdf" type="application/pdf" />
     </div>
     
+    <!-- Fallback if PDF embedding fails -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const embed = document.querySelector('embed');
             embed.onerror = function() {
                 const fallbackHTML = `
                     <div style="padding: 20px; color: red; text-align: center;">
-                        <p>PDF viewer not supported. <a href="LightRides - Brochure.pdf" download>Download instead</a>.</p>
+                        <p>PDF viewer not supported. <a href="LightRides - Brochure.pdf" download>Download PDF</a>.</p>
                     </div>
                 `;
                 embed.parentElement.innerHTML = fallbackHTML;
