@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LightRides Brochure Viewer</title>
+    <title>LightRides | Rides brought LIGHT</title>
     <link rel="icon" href="LightRides circle logo.png" type="image/png">
     <style>
         body {
@@ -26,9 +26,10 @@
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         }
         
-        h1 {
-            color: #ffffff;
-            margin-bottom: 10px;
+        .site-banner {
+            max-width: 80%;
+            height: auto;
+            margin-bottom: 20px;
         }
         
         /* Etsy button styling */
@@ -49,14 +50,15 @@
     </style>
 </head>
 <body>
-    <h1>LightRides | Rides brought to LIGHT</h1>
+    <!-- Site Banner Image -->
+    <img src="lightrides site banner.png" alt="LightRides" class="site-banner">
     
     <!-- Etsy Store Button -->
     <a href="https://amusementlabs.etsy.com" target="_blank" rel="noopener noreferrer" class="etsy-btn">
         Etsy Store
     </a>
     
-    <!-- PDF Viewer - Simple and reliable implementation -->
+    <!-- PDF Viewer -->
     <div class="document-window">
         <iframe 
             src="LightRides - Brochure.pdf#toolbar=0&navpanes=0" 
@@ -71,11 +73,19 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const iframe = document.querySelector('iframe');
+            // Check if banner image loaded successfully
+            const banner = document.querySelector('.site-banner');
+            banner.onerror = function() {
+                this.style.display = 'none';
+                const fallbackTitle = document.createElement('h1');
+                fallbackTitle.textContent = 'LightRides Brochure';
+                document.body.insertBefore(fallbackTitle, document.querySelector('.etsy-btn'));
+            };
+            
+            // Check if PDF loaded successfully
             iframe.onload = function() {
-                // Check if PDF loaded successfully
                 try {
                     if (iframe.contentDocument.body.innerHTML.includes("PDF")) {
-                        // PDF failed to load, show alternative
                         iframe.parentElement.innerHTML = `
                             <div style="padding: 20px; color: black;">
                                 <p>PDF could not be displayed. 
@@ -84,7 +94,6 @@
                         `;
                     }
                 } catch (e) {
-                    // Cross-origin error handling
                     iframe.parentElement.innerHTML = `
                         <div style="padding: 20px; color: black;">
                             <p>Viewer not supported. 
