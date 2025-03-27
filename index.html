@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lightrides Brochure Viewer</title>
+    <title>LightRides Brochure Viewer</title>
     <style>
         body {
             background-color: #000000;
@@ -11,50 +11,69 @@
             padding: 20px;
             font-family: Arial, sans-serif;
             color: #ffffff;
+            text-align: center;
         }
         
         .document-window {
             width: 80%;
-            height: 80vh;
-            margin: 0 auto;
+            height: 70vh;
+            margin: 20px auto;
             background-color: #ffffff;
             border: 2px solid #444444;
             border-radius: 8px;
-            overflow: hidden; /* Changed from 'auto' to 'hidden' for PDF embedding */
-            color: #000000;
+            overflow: hidden;
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         }
         
         h1 {
-            text-align: center;
             color: #ffffff;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
         }
         
-        /* Style for the embedded PDF */
         embed {
             width: 100%;
             height: 100%;
             border: none;
         }
+        
+        .download-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #333333;
+            color: #ffffff;
+            text-decoration: none;
+            border: 1px solid #666666;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .download-btn:hover {
+            background-color: #555555;
+        }
     </style>
 </head>
 <body>
-    <h1>Lightrides Brochure</h1>
+    <h1>LightRides Brochure</h1>
     
+    <!-- Updated PDF filename in the download link -->
+    <a href="LightRides - Brochure.pdf" download class="download-btn">
+        Download Brochure (PDF)
+    </a>
+    
+    <!-- Updated PDF filename in the embed tag -->
     <div class="document-window">
-        <!-- Embed the PDF directly -->
-        <embed src="Lightrides Brochure.pdf" type="application/pdf" />
+        <embed src="LightRides - Brochure.pdf" type="application/pdf" />
     </div>
     
-    <!-- Fallback message if PDF fails to load -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const embed = document.querySelector('embed');
             embed.onerror = function() {
                 const fallbackHTML = `
                     <div style="padding: 20px; color: red; text-align: center;">
-                        <p>Failed to load the PDF. <a href="Lightrides Brochure.pdf" download>Download it instead</a>.</p>
+                        <p>PDF viewer not supported. <a href="LightRides - Brochure.pdf" download>Download instead</a>.</p>
                     </div>
                 `;
                 embed.parentElement.innerHTML = fallbackHTML;
