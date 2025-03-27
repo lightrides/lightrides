@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LightRides Brochure Viewer</title>
     <link rel="icon" href="LightRides circle logo.png" type="image/png">
-    <!-- PDF.js Viewer CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.viewer.min.css">
     <style>
         body {
             background-color: #000000;
@@ -16,73 +14,85 @@
             color: #ffffff;
             text-align: center;
         }
-        h1 {
-            color: #ffffff;
-            margin-bottom: 10px;
-        }
+        
         .document-window {
             width: 80%;
             height: 70vh;
             margin: 20px auto;
+            background-color: #ffffff;
             border: 2px solid #444444;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         }
-        /* Hide PDF.js toolbar and sidebar */
-        #pdf-viewer .toolbar, #pdf-viewer .sidebar {
-            display: none !important;
+        
+        h1 {
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+        
+        /* Etsy button styling */
+        .etsy-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #f16521;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .etsy-btn:hover {
+            background-color: #d84b0e;
         }
     </style>
 </head>
 <body>
     <h1>LightRides Brochure</h1>
-    <!-- PDF.js Container -->
+    
+    <!-- Etsy Store Button -->
+    <a href="https://amusementlabs.etsy.com" target="_blank" rel="noopener noreferrer" class="etsy-btn">
+        Etsy Store
+    </a>
+    
+    <!-- PDF Viewer - Simple and reliable implementation -->
     <div class="document-window">
-        <iframe id="pdf-iframe" src="" width="100%" height="100%"></iframe>
+        <iframe 
+            src="LightRides - Brochure.pdf#toolbar=0&navpanes=0" 
+            width="100%" 
+            height="100%"
+            style="border: none;"
+        >
+        </iframe>
     </div>
 
-    <!-- PDF.js Script -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.min.js"></script>
+    <!-- Fallback for browsers that don't support iframe PDF viewing -->
     <script>
-        // Initialize PDF.js
-        pdfjsLib.getDocument("LightRides - Brochure.pdf").promise.then(function(pdf) {
-            const iframe = document.getElementById('pdf-iframe');
-            iframe.srcdoc = `
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.viewer.min.css">
-                    <style>
-                        .toolbar, .sidebar { display: none !important; }
-                        #viewerContainer { top: 0 !important; }
-                    </style>
-                </head>
-                <body>
-                    <div id="viewerContainer">
-                        <div id="viewer" class="pdfViewer"></div>
-                    </div>
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.min.js"><\/script>
-                    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.viewer.min.js"><\/script>
-                    <script>
-                        pdfjsLib.getDocument("LightRides - Brochure.pdf").promise.then(function(pdf) {
-                            const container = document.getElementById('viewer');
-                            for (let i = 1; i <= pdf.numPages; i++) {
-                                pdf.getPage(i).then(function(page) {
-                                    const viewport = page.getViewport({ scale: 1.5 });
-                                    const canvas = document.createElement('canvas');
-                                    const context = canvas.getContext('2d');
-                                    canvas.height = viewport.height;
-                                    canvas.width = viewport.width;
-                                    container.appendChild(canvas);
-                                    page.render({ canvasContext: context, viewport: viewport });
-                                });
-                            }
-                        });
-                    <\/script>
-                </body>
-                </html>
-            `;
+        document.addEventListener('DOMContentLoaded', function() {
+            const iframe = document.querySelector('iframe');
+            iframe.onload = function() {
+                // Check if PDF loaded successfully
+                try {
+                    if (iframe.contentDocument.body.innerHTML.includes("PDF")) {
+                        // PDF failed to load, show alternative
+                        iframe.parentElement.innerHTML = `
+                            <div style="padding: 20px; color: black;">
+                                <p>PDF could not be displayed. 
+                                <a href="LightRides - Brochure.pdf" target="_blank">Open PDF in new tab</a></p>
+                            </div>
+                        `;
+                    }
+                } catch (e) {
+                    // Cross-origin error handling
+                    iframe.parentElement.innerHTML = `
+                        <div style="padding: 20px; color: black;">
+                            <p>Viewer not supported. 
+                            <a href="LightRides - Brochure.pdf" target="_blank">Open PDF directly</a></p>
+                        </div>
+                    `;
+                }
+            };
         });
     </script>
 </body>
