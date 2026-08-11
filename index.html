@@ -5,130 +5,326 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LightRides | Rides brought to LIGHT!</title>
     <link rel="icon" href="LightRides circle logo.png" type="image/png">
+    
+    <!-- Modern Sans-Serif Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        body {
-            background-color: #000000;
-            margin: 0;
-            padding: 20px;
-            font-family: Arial, sans-serif;
-            color: #ffffff;
-            text-align: center;
+        :root {
+            --bg-color: #0b0f17;
+            --card-bg: rgba(22, 28, 39, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --accent-glow: rgba(0, 183, 255, 0.15);
+            --etsy-color: #f16521;
+            --youtube-color: #ff0000;
         }
-        
-        .document-window {
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(241, 101, 33, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 100%, rgba(0, 150, 255, 0.05) 0%, transparent 50%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        /* Banner Logo Styling */
+        .banner-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 1rem 0;
+        }
+
+        .site-banner {
+            max-width: 380px;
             width: 80%;
-            height: 70vh;
-            margin: 20px auto;
-            background-color: #ffffff;
-            border: 2px solid #444444;
+            height: auto;
+            filter: drop-shadow(0 0 25px var(--accent-glow));
+            transition: transform 0.3s ease;
+        }
+
+        .site-banner:hover {
+            transform: scale(1.02);
+        }
+
+        /* Nav Buttons Grid (Supports up to 5 seamlessly) */
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.85rem;
+            width: 100%;
+            max-width: 650px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            padding: 0.8rem 1.4rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(10px);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Brand Custom Colors */
+        .btn-etsy {
+            background: var(--etsy-color);
+            border-color: rgba(241, 101, 33, 0.4);
+        }
+        .btn-etsy:hover {
+            background: #d85210;
+            box-shadow: 0 6px 20px rgba(241, 101, 33, 0.35);
+        }
+
+        .btn-youtube {
+            background: var(--youtube-color);
+            border-color: rgba(255, 0, 0, 0.4);
+        }
+        .btn-youtube:hover {
+            background: #cc0000;
+            box-shadow: 0 6px 20px rgba(255, 0, 0, 0.35);
+        }
+
+        /* Custom / Extra Link Buttons */
+        .btn-custom {
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .btn-custom:hover {
+            background: rgba(255, 255, 255, 0.18);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Media / Viewer Section */
+        .media-card {
+            width: 100%;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 1.25rem;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .media-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .media-title {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* 16:9 Aspect Ratio Container for Video/PDF */
+        .aspect-ratio-box {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            background: #000000;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        
-        .site-banner {
-            max-width: 80%;
-            height: auto;
-            margin-bottom: 20px;
+
+        .aspect-ratio-box iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
-        
-        .button-container {
-            margin: 15px 0;
+
+        /* Fallback Notice */
+        .fallback-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
         }
-        
-        /* Etsy button styling */
-        .etsy-btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #f16521;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-            margin: 0 10px;
+
+        .fallback-container a {
+            color: #00b7ff;
+            text-decoration: underline;
         }
-        
-        /* YouTube button styling */
-        .youtube-btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #ff0000;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-            margin: 0 10px;
-        }
-        
-        .etsy-btn:hover {
-            background-color: #d84b0e;
-        }
-        
-        .youtube-btn:hover {
-            background-color: #cc0000;
+
+        /* Mobile adjustments */
+        @media (max-width: 600px) {
+            body {
+                padding: 1.25rem 0.75rem;
+            }
+            .button-container {
+                flex-direction: column;
+                width: 100%;
+            }
+            .btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Site Banner Image -->
-    <img src="lightrides site banner.png" alt="LightRides" class="site-banner">
-    
-    <!-- Button Container -->
-    <div class="button-container">
-        <a href="https://amusementlabs.etsy.com" target="_blank" rel="noopener noreferrer" class="etsy-btn">
-            Etsy Store
-        </a>
-        <a href="https://www.youtube.com/amusementlabs" target="_blank" rel="noopener noreferrer" class="youtube-btn">
-            YouTube
-        </a>
-    </div>
-    
-    <!-- PDF Viewer -->
-    <div class="document-window">
-        <iframe 
-            src="LightRides - Brochure.pdf#toolbar=0&navpanes=0" 
-            width="100%" 
-            height="100%"
-            style="border: none;"
-        >
-        </iframe>
-    </div>
 
-    <!-- Fallback for browsers that don't support iframe PDF viewing -->
+    <main class="container">
+        <!-- Site Banner / Logo -->
+        <div class="banner-wrapper">
+            <img src="lightrides site banner.png" alt="LightRides" class="site-banner">
+        </div>
+        
+        <!-- Button Container (Up to 5 Buttons) -->
+        <nav class="button-container">
+            <!-- 1. Etsy Store -->
+            <a href="https://amusementlabs.etsy.com" target="_blank" rel="noopener noreferrer" class="btn btn-etsy">
+                <svg viewBox="0 0 24 24"><path d="M9.18 18.06c-.15.82-.77 1.34-1.63 1.34-1.27 0-1.81-.97-1.81-2.4 0-2.3 1.27-5.32 3.14-5.32.74 0 1.28.43 1.46 1.09l.37-1.01h2.24l-1.8 8.94c-.2.98-.12 1.5.34 1.5.6 0 1.28-.68 1.83-1.84l.65.46c-.92 1.8-2.18 2.62-3.37 2.62-1.39 0-1.92-.86-1.62-2.31l.2-1.07zm11.39-4.83c0 2.58-1.92 4.96-4.63 4.96-2.15 0-3.52-1.42-3.52-3.51 0-2.86 2.21-5.18 4.79-5.18 2.02 0 3.36 1.35 3.36 3.23l-.01.5zm-2.31-.83c0-.98-.53-1.65-1.38-1.65-1.07 0-2.03 1.15-2.03 2.52 0 .82.47 1.37 1.27 1.37.99 0 2.14-1.01 2.14-2.24z"/></svg>
+                Etsy Store
+            </a>
+
+            <!-- 2. YouTube Channel -->
+            <a href="https://www.youtube.com/amusementlabs" target="_blank" rel="noopener noreferrer" class="btn btn-youtube">
+                <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                YouTube
+            </a>
+
+            <!-- 3. Optional Button (Uncomment to use) -->
+            <!-- 
+            <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-custom">
+                Instagram
+            </a> 
+            -->
+
+            <!-- 4. Optional Button -->
+            <!-- 
+            <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-custom">
+                TikTok
+            </a> 
+            -->
+
+            <!-- 5. Optional Button -->
+            <!-- 
+            <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-custom">
+                Contact Us
+            </a> 
+            -->
+        </nav>
+
+        <!-- Media Card Container (PDF Viewer or Embedded Video) -->
+        <section class="media-card">
+            <div class="media-header">
+                <span class="media-title">Latest Updates & Brochure</span>
+            </div>
+
+            <div class="aspect-ratio-box">
+                <!-- OPTION A: PDF Viewer (Current) -->
+                <iframe 
+                    src="LightRides - Brochure.pdf#toolbar=0&navpanes=0" 
+                    title="LightRides Brochure"
+                ></iframe>
+
+                <!-- OPTION B: YouTube Video Embed (Replace VIDEO_ID with your video's ID or latest upload list) -->
+                <!-- 
+                <iframe 
+                    src="https://www.youtube.com/embed/videoseries?list=UUp-amusementlabs" 
+                    title="Latest YouTube Video"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen
+                ></iframe> 
+                -->
+            </div>
+        </section>
+    </main>
+
+    <!-- JS Fallbacks -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const iframe = document.querySelector('iframe');
-            // Check if banner image loaded successfully
+            const iframe = document.querySelector('.aspect-ratio-box iframe');
             const banner = document.querySelector('.site-banner');
-            banner.onerror = function() {
-                this.style.display = 'none';
-                const fallbackTitle = document.createElement('h1');
-                fallbackTitle.textContent = 'LightRides Brochure';
-                document.body.insertBefore(fallbackTitle, document.querySelector('.button-container'));
-            };
             
-            // Check if PDF loaded successfully
-            iframe.onload = function() {
-                try {
-                    if (iframe.contentDocument.body.innerHTML.includes("PDF")) {
+            // Image Fallback
+            if (banner) {
+                banner.onerror = function() {
+                    this.style.display = 'none';
+                    const fallbackTitle = document.createElement('h1');
+                    fallbackTitle.textContent = 'LightRides';
+                    fallbackTitle.style.marginBottom = '1rem';
+                    document.body.insertBefore(fallbackTitle, document.querySelector('nav'));
+                };
+            }
+
+            // PDF Fallback Check
+            if (iframe && iframe.src.includes('.pdf')) {
+                iframe.onload = function() {
+                    try {
+                        if (iframe.contentDocument && iframe.contentDocument.body.innerHTML.includes("PDF")) {
+                            throw new Error("PDF failed to render inside iframe");
+                        }
+                    } catch (e) {
                         iframe.parentElement.innerHTML = `
-                            <div style="padding: 20px; color: black;">
-                                <p>PDF could not be displayed. 
-                                <a href="LightRides - Brochure.pdf" target="_blank">Open PDF in new tab</a></p>
+                            <div class="fallback-container">
+                                <p>Viewer not supported on this device. 
+                                <a href="LightRides - Brochure.pdf" target="_blank" rel="noopener">Open PDF directly</a></p>
                             </div>
                         `;
                     }
-                } catch (e) {
-                    iframe.parentElement.innerHTML = `
-                        <div style="padding: 20px; color: black;">
-                            <p>Viewer not supported. 
-                            <a href="LightRides - Brochure.pdf" target="_blank">Open PDF directly</a></p>
-                        </div>
-                    `;
-                }
-            };
+                };
+            }
         });
     </script>
 </body>
