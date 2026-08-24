@@ -6,13 +6,18 @@
     <title>LightRides | Rides brought to LIGHT!</title>
     <link rel="icon" href="LightRides circle logo.png" type="image/png">
     
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --bg-color: #0b0f17;
-            --card-bg: rgba(22, 28, 39, 0.8);
-            --card-border: rgba(255, 255, 255, 0.1);
+            --card-bg: rgba(22, 28, 39, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
             --text-primary: #ffffff;
             --text-secondary: #94a3b8;
+            --accent-glow: rgba(0, 183, 255, 0.15);
             
             /* Brand Colors */
             --crimson-color: #990000;
@@ -31,77 +36,113 @@
 
         body {
             background-color: var(--bg-color);
-            background-image: radial-gradient(circle at 50% 0%, rgba(241, 101, 33, 0.12) 0%, transparent 50%);
-            font-family: Arial, sans-serif;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(241, 101, 33, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 50% 100%, rgba(88, 101, 242, 0.08) 0%, transparent 50%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             color: var(--text-primary);
-            text-align: center;
-            padding: 20px 15px;
             min-height: 100vh;
-        }
-
-        .main-container {
-            max-width: 800px;
-            margin: 0 auto;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        /* Banner Logo */
+        .banner-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
 
         .site-banner {
-            max-width: 80%;
-            width: 350px;
+            max-width: 340px;
+            width: 80%;
             height: auto;
-            margin-bottom: 10px;
+            filter: drop-shadow(0 0 25px var(--accent-glow));
+            transition: transform 0.3s ease;
+        }
+
+        .site-banner:hover {
+            transform: scale(1.02);
+        }
+
+        /* Layout Grid: Links on Left, Video on Right */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            width: 100%;
+            align-items: start;
         }
 
         /* Vertical Buttons List */
-        .button-container {
+        .button-list {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 0.85rem;
             width: 100%;
-            max-width: 600px;
         }
 
         .link-item {
             display: flex;
             align-items: center;
+            gap: 0.85rem;
             text-decoration: none;
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--card-border);
-            padding: 8px 12px 8px 8px;
-            border-radius: 50px; /* Pill shape */
-            transition: transform 0.2s ease, background 0.2s ease;
+            padding: 0.5rem 0.85rem 0.5rem 0.5rem;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .link-item:hover {
-            transform: translateY(-2px);
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateX(4px);
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
         }
 
         .btn-badge {
-            display: inline-block;
-            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            padding: 0.55rem 1rem;
             border-radius: 40px;
-            font-size: 0.9rem;
-            font-weight: bold;
+            font-size: 0.85rem;
+            font-weight: 600;
             color: #ffffff;
             white-space: nowrap;
             flex-shrink: 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-badge svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
         }
 
         .link-desc {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-secondary);
-            margin-left: 15px;
-            text-align: left;
-            line-height: 1.2;
+            line-height: 1.25;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        /* Brand Colors */
+        /* Custom Brand Badge Colors */
         .bg-crimson { background-color: var(--crimson-color); }
         .bg-etsy { background-color: var(--etsy-color); }
         .bg-youtube { background-color: var(--youtube-color); }
@@ -109,21 +150,40 @@
         .bg-instagram { background-color: var(--instagram-color); }
         .bg-discord { background-color: var(--discord-color); }
 
-        /* Embedded Video Section */
-        .video-window {
-            width: 100%;
-            max-width: 600px;
-            background-color: #000000;
+        /* Media / Video Card */
+        .video-card {
+            background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 12px;
-            overflow: hidden;
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 ratio */
-            height: 0;
-            margin-top: 10px;
+            border-radius: 16px;
+            padding: 0.85rem;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            width: 100%;
         }
 
-        .video-window iframe {
+        .card-header {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .aspect-ratio-box {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 ratio */
+            height: 0;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .aspect-ratio-box iframe {
             position: absolute;
             top: 0;
             left: 0;
@@ -132,135 +192,221 @@
             border: none;
         }
 
+        /* Divider Line */
         .divider {
             width: 100%;
-            max-width: 600px;
             height: 1px;
-            background: rgba(255, 255, 255, 0.15);
-            margin: 15px 0;
+            background: linear-gradient(90deg, transparent, var(--card-border), transparent);
+            margin: 0.5rem 0;
         }
 
-        .section-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #ffffff;
-            margin-bottom: 10px;
+        /* Brochure Section */
+        .brochure-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
         }
 
-        /* PDF Window Section */
+        .brochure-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: -0.01em;
+            background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
         .document-window {
             width: 100%;
-            height: 70vh;
-            background-color: #ffffff;
-            border: 1px solid #444444;
-            border-radius: 8px;
+            height: 60vh;
+            max-height: 650px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
         }
 
-        @media (max-width: 500px) {
-            .link-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 6px;
-                border-radius: 12px;
-                padding: 10px;
+        .fallback-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .fallback-container a {
+            color: #00b7ff;
+            text-decoration: underline;
+        }
+
+        /* Mobile Responsive Adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding: 1.25rem 0.75rem;
             }
+
+            .container {
+                gap: 1.5rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .link-item {
+                padding: 0.45rem 0.75rem 0.45rem 0.45rem;
+            }
+
+            .btn-badge {
+                padding: 0.5rem 0.85rem;
+                font-size: 0.8rem;
+            }
+
             .link-desc {
-                margin-left: 5px;
+                font-size: 0.75rem;
+            }
+
+            .document-window {
+                height: 50vh;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="main-container">
-        <img src="lightrides site banner.png" alt="LightRides" class="site-banner">
-        
-        <div class="button-container">
-            <a href="https://amusementlabs.etsy.com/listing/4362749809/halloween-led-pins-full-set-of-102030" target="_blank" rel="noopener noreferrer" class="link-item">
-                <span class="btn-badge bg-crimson">Never Glow Alone Pins</span>
-                <span class="link-desc">Get the full set of Halloween LED Pins!</span>
-            </a>
-
-            <a href="https://amusementlabs.etsy.com" target="_blank" rel="noopener noreferrer" class="link-item">
-                <span class="btn-badge bg-etsy">Etsy Store</span>
-                <span class="link-desc">More to explore with LightRides!</span>
-            </a>
-
-            <a href="https://www.youtube.com/@AmusementLabs" target="_blank" rel="noopener noreferrer" class="link-item">
-                <span class="btn-badge bg-youtube">YouTube</span>
-                <span class="link-desc">Engineering curiosity with theme park engineering videos!</span>
-            </a>
-
-            <a href="https://www.patreon.com/cw/amusementlabs" target="_blank" rel="noopener noreferrer" class="link-item">
-                <span class="btn-badge bg-patreon">Patreon</span>
-                <span class="link-desc">Support us and get exclusive perks and updates!</span>
-            </a>
-
-            <a href="https://www.instagram.com/amusementlabs/" target="_blank" rel="noopener noreferrer" class="link-item">
-                <span class="btn-badge bg-instagram">Instagram</span>
-                <span class="link-desc">Follow us for daily updates, giveaways and more!</span>
-            </a>
-
-            <a href="https://discord.gg/g9kJmUBmgX" target="_blank" rel="noopener noreferrer" class="link-item">
-                <span class="btn-badge bg-discord">Discord</span>
-                <span class="link-desc">Join our theme park community!</span>
-            </a>
+    <main class="container">
+        <div class="banner-wrapper">
+            <img src="lightrides site banner.png" alt="LightRides" class="site-banner">
         </div>
 
-        <div class="video-window">
-            <iframe 
-                src="https://www.youtube.com/embed/2ALOkWrTbj4?autoplay=1&mute=1" 
-                title="Amusement Labs Video"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
+        <div class="content-grid">
+            
+            <nav class="button-list">
+
+                <a href="https://amusementlabs.etsy.com/listing/4362749809/halloween-led-pins-full-set-of-102030" target="_blank" rel="noopener noreferrer" class="link-item">
+                    <span class="btn-badge bg-crimson">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        Never Glow Alone Pins
+                    </span>
+                    <span class="link-desc">Get the full set!</span>
+                </a>
+                
+                <a href="https://amusementlabs.etsy.com" target="_blank" rel="noopener noreferrer" class="link-item">
+                    <span class="btn-badge bg-etsy">
+                        <svg viewBox="0 0 24 24"><path d="M9.18 18.06c-.15.82-.77 1.34-1.63 1.34-1.27 0-1.81-.97-1.81-2.4 0-2.3 1.27-5.32 3.14-5.32.74 0 1.28.43 1.46 1.09l.37-1.01h2.24l-1.8 8.94c-.2.98-.12 1.5.34 1.5.6 0 1.28-.68 1.83-1.84l.65.46c-.92 1.8-2.18 2.62-3.37 2.62-1.39 0-1.92-.86-1.62-2.31l.2-1.07zm11.39-4.83c0 2.58-1.92 4.96-4.63 4.96-2.15 0-3.52-1.42-3.52-3.51 0-2.86 2.21-5.18 4.79-5.18 2.02 0 3.36 1.35 3.36 3.23l-.01.5zm-2.31-.83c0-.98-.53-1.65-1.38-1.65-1.07 0-2.03 1.15-2.03 2.52 0 .82.47 1.37 1.27 1.37.99 0 2.14-1.01 2.14-2.24z"/></svg>
+                        Etsy Store
+                    </span>
+                    <span class="link-desc">More to explore with LightRides!</span>
+                </a>
+
+                <a href="https://www.youtube.com/@AmusementLabs" target="_blank" rel="noopener noreferrer" class="link-item">
+                    <span class="btn-badge bg-youtube">
+                        <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        YouTube
+                    </span>
+                    <span class="link-desc">Engineering curiosity with theme park videos!</span>
+                </a>
+
+                <a href="https://www.patreon.com/cw/amusementlabs" target="_blank" rel="noopener noreferrer" class="link-item">
+                    <span class="btn-badge bg-patreon">
+                        <svg viewBox="0 0 24 24"><path d="M15.386 0c-4.764 0-8.64 3.876-8.64 8.64 0 4.75 3.876 8.613 8.64 8.613 4.75 0 8.614-3.864 8.614-8.613C24 3.876 20.136 0 15.386 0zM0 24h4.277V0H0v24z"/></svg>
+                        Patreon
+                    </span>
+                    <span class="link-desc">Support us and get exclusive perks!</span>
+                </a>
+
+                <a href="https://www.instagram.com/amusementlabs/" target="_blank" rel="noopener noreferrer" class="link-item">
+                    <span class="btn-badge bg-instagram">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        Instagram
+                    </span>
+                    <span class="link-desc">Daily updates, giveaways and more!</span>
+                </a>
+
+                <a href="https://discord.gg/g9kJmUBmgX" target="_blank" rel="noopener noreferrer" class="link-item">
+                    <span class="btn-badge bg-discord">
+                        <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+                        Discord
+                    </span>
+                    <span class="link-desc">Join our theme park community!</span>
+                </a>
+
+            </nav>
+
+            <div class="video-card">
+                <div class="card-header">
+                    Latest Video
+                </div>
+                <div class="aspect-ratio-box">
+                    <iframe 
+                        src="https://www.youtube.com/embed/SFYEx90Cbkw?autoplay=1&mute=1" 
+                        title="Revenge of the Mummy - How It Works"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
         </div>
 
         <div class="divider"></div>
 
-        <div class="section-title">Want to bring LightRides to your park?</div>
-        
-        <div class="document-window">
-            <iframe 
-                src="LightRides - Brochure.pdf#toolbar=0&navpanes=0" 
-                width="100%" 
-                height="100%"
-                style="border: none;"
-            ></iframe>
-        </div>
-    </div>
+        <section class="brochure-section">
+            <h2 class="brochure-title">Want to bring LightRides to your park?</h2>
+
+            <div class="document-window">
+                <iframe 
+                    src="LightRides - Brochure.pdf#toolbar=0&navpanes=0" 
+                    title="LightRides Brochure PDF"
+                    width="100%" 
+                    height="100%"
+                    style="border: none;"
+                ></iframe>
+            </div>
+        </section>
+    </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const iframe = document.querySelector('.document-window iframe');
             const banner = document.querySelector('.site-banner');
-            
-            banner.onerror = function() {
-                this.style.display = 'none';
-                const fallbackTitle = document.createElement('h1');
-                fallbackTitle.textContent = 'LightRides';
-                document.querySelector('.main-container').insertBefore(fallbackTitle, document.querySelector('.button-container'));
-            };
-            
-            iframe.onload = function() {
-                try {
-                    if (iframe.contentDocument.body.innerHTML.includes("PDF")) {
-                        iframe.parentElement.innerHTML = `
-                            <div style="padding: 20px; color: black;">
-                                <p>PDF could not be displayed. <a href="LightRides - Brochure.pdf" target="_blank">Open PDF in new tab</a></p>
+            const pdfIframe = document.querySelector('.document-window iframe');
+
+            // Image Fallback
+            if (banner) {
+                banner.onerror = function() {
+                    this.style.display = 'none';
+                    const fallbackTitle = document.createElement('h1');
+                    fallbackTitle.textContent = 'LightRides';
+                    fallbackTitle.style.marginBottom = '1rem';
+                    document.body.insertBefore(fallbackTitle, document.querySelector('.content-grid'));
+                };
+            }
+
+            // PDF Fallback Check
+            if (pdfIframe) {
+                pdfIframe.onload = function() {
+                    try {
+                        if (pdfIframe.contentDocument && pdfIframe.contentDocument.body.innerHTML.includes("PDF")) {
+                            throw new Error("PDF failed to load inside iframe");
+                        }
+                    } catch (e) {
+                        pdfIframe.parentElement.innerHTML = `
+                            <div class="fallback-container">
+                                <p>Viewer not supported. 
+                                <a href="LightRides - Brochure.pdf" target="_blank" rel="noopener">Open PDF directly</a></p>
                             </div>
                         `;
                     }
-                } catch (e) {
-                    iframe.parentElement.innerHTML = `
-                        <div style="padding: 20px; color: white;">
-                            <p>Viewer not supported. <a href="LightRides - Brochure.pdf" target="_blank" style="color: #00b7ff;">Open PDF directly</a></p>
-                        </div>
-                    `;
-                }
-            };
+                };
+            }
         });
     </script>
 </body>
