@@ -38,7 +38,7 @@
             padding: 0;
         }
 
-        /* Page Body styling with a centered, lighter holiday blue gradient background */
+        /* Page Body styling with top padding to accommodate lights */
         body {
             background-color: var(--bg-color);
             background-image: 
@@ -50,58 +50,51 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 2.5rem 1rem;
+            padding: 4.5rem 1rem 2.5rem 1rem; /* Extra top padding gives space below lights */
             position: relative;
             overflow-x: hidden;
         }
 
-        /* --- Swagged Top Holiday Lights Styles --- */
-        .swag-lights-container {
+        /* --- Top Holiday String Lights Styles --- */
+        .lights-container {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 90px;
+            width: 100%;
+            height: 50px;
             pointer-events: none;
-            z-index: 100;
-            overflow: hidden;
+            z-index: 10;
         }
 
-        /* SVG Swagged Green Cable */
-        .swag-cable-svg {
-            position: absolute;
+        /* Thicker Holiday Green Cable across Top Edge */
+        .lights-wire-top {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 90px;
+            height: 10px;
+            border-bottom: 4px solid #1e4d2b;
             pointer-events: none;
+            z-index: 9;
         }
 
-        .swag-cable-path {
-            fill: none;
-            stroke: #1e4d2b;
-            stroke-width: 3.5;
-            stroke-linecap: round;
-        }
-
-        /* C9 Bulb Shape */
+        /* C9 Bulb Shape (Tear-drop bulb design hanging downward) */
         .light-bulb {
             position: absolute;
             width: 14px;
             height: 22px;
             border-radius: 50% 50% 40% 40% / 60% 60% 40% 40%;
             animation: pulse-glow 2s ease-in-out infinite alternate;
-            transform-origin: top center;
         }
 
         /* Bulb Socket Base */
         .light-bulb::before {
             content: '';
             position: absolute;
-            top: -4px;
+            top: -5px;
             left: 3px;
             width: 8px;
-            height: 5px;
+            height: 6px;
             background: #112616;
             border-radius: 2px;
         }
@@ -174,7 +167,7 @@
         }
         /* ------------------------------------- */
 
-        /* Main Container Layout - Added top margin so banner sits below top swag lights */
+        /* Main Container Layout */
         .container {
             width: 100%;
             max-width: 850px;
@@ -182,15 +175,15 @@
             flex-direction: column;
             align-items: center;
             gap: 2rem;
-            margin-top: 2.5rem; /* Pushes banner and content down beneath swag lights */
-            z-index: 2;
+            z-index: 2; /* Ensures content sits above background effects */
         }
 
-        /* Banner Logo Wrapper */
+        /* Banner Logo Wrapper - Pushed down cleanly below top lights strand */
         .banner-wrapper {
             width: 100%;
             display: flex;
             justify-content: center;
+            margin-top: 0.5rem; /* Additional breathing room below lights */
         }
 
         .site-banner {
@@ -379,12 +372,11 @@
         /* Mobile Responsiveness (screens under 768px wide) */
         @media (max-width: 768px) {
             body {
-                padding: 1.25rem 0.75rem;
+                padding: 4rem 0.75rem 1.25rem 0.75rem;
             }
 
             .container {
                 gap: 1.5rem;
-                margin-top: 2rem;
             }
 
             .content-grid {
@@ -413,12 +405,11 @@
 </head>
 <body>
 
-    <!-- Top Swagged String Lights Container -->
-    <div class="swag-lights-container">
-        <svg class="swag-cable-svg" width="100%" height="90">
-            <path class="swag-cable-path" d="" />
-        </svg>
-    </div>
+    <!-- Holiday String Green Cord (Top Edge Only) -->
+    <div class="lights-wire-top"></div>
+
+    <!-- Dynamic C9 Multi-Colored Lights Container (Top Edge Only) -->
+    <div class="lights-container"></div>
 
     <!-- Target container for the falling snow particles -->
     <div class="snow-container"></div>
@@ -468,4 +459,145 @@
 
                 <a href="https://www.instagram.com/amusementlabs/" target="_blank" rel="noopener noreferrer" class="link-item">
                     <span class="btn-badge bg-instagram">
-                        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.
+                        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        Instagram
+                    </span>
+                    <span class="link-desc">Daily updates, giveaways and more!</span>
+                </a>
+
+                <a href="https://discord.gg/g9kJmUBmgX" target="_blank" rel="noopener noreferrer" class="link-item">
+                    <span class="btn-badge bg-discord">
+                        <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+                        Discord
+                    </span>
+                    <span class="link-desc">Join our theme park nerd community!</span>
+                </a>
+
+            </nav>
+
+            <!-- Embedded YouTube Video Card -->
+            <div class="video-card">
+                <div class="card-header">
+                    Latest 'How It Works' Video
+                </div>
+                <div class="aspect-ratio-box">
+                    <iframe 
+                        src="https://www.youtube.com/embed/SFYEx90Cbkw?autoplay=1&mute=1" 
+                        title="Revenge of the Mummy - How It Works"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Brochure Section -->
+        <section class="brochure-section">
+            <h2 class="brochure-title">Want to bring LightRides to your park?</h2>
+
+            <div class="document-window">
+                <iframe 
+                    src="LightRides - Brochure.pdf#toolbar=0&navpanes=0" 
+                    title="LightRides Brochure PDF"
+                    width="100%" 
+                    height="100%"
+                    style="border: none;"
+                ></iframe>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const banner = document.querySelector('.site-banner');
+            const pdfIframe = document.querySelector('.document-window iframe');
+
+            // --- Top Edge C9 Holiday Lights Generator & Resizer ---
+            const lightsContainer = document.querySelector('.lights-container');
+            const colors = ['bulb-red', 'bulb-orange', 'bulb-yellow', 'bulb-green', 'bulb-blue'];
+
+            function renderTopHolidayLights() {
+                lightsContainer.innerHTML = ''; // Clear existing bulbs on window resize
+                const spacing = 50; // Distance between bulbs in pixels
+                const screenWidth = window.innerWidth;
+                let colorIndex = 0;
+
+                // Generate C9 bulbs hanging along top edge only
+                for (let x = 15; x < screenWidth; x += spacing) {
+                    const bulb = document.createElement('div');
+                    bulb.classList.add('light-bulb', colors[colorIndex % colors.length]);
+                    bulb.style.left = x + 'px';
+                    bulb.style.top = '6px';
+                    // Stagger animation timing for smooth alternating pulse effect
+                    bulb.style.animationDelay = ((colorIndex * 0.3) % 2) + 's';
+                    lightsContainer.appendChild(bulb);
+                    colorIndex++;
+                }
+            }
+
+            // Initial render
+            renderTopHolidayLights();
+
+            // Re-render bulbs automatically on window resize
+            let resizeTimer;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(renderTopHolidayLights, 150);
+            });
+            // -----------------------------------------------------
+
+            // --- Falling Snow Animation Script ---
+            const snowContainer = document.querySelector('.snow-container');
+            const snowflakeCount = 40;
+
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                
+                const size = Math.random() * 4 + 2 + 'px';
+                snowflake.style.width = size;
+                snowflake.style.height = size;
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.animationDuration = Math.random() * 5 + 3 + 's';
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+                snowflake.style.opacity = Math.random() * 0.6 + 0.2;
+
+                snowContainer.appendChild(snowflake);
+            }
+            // ------------------------------------
+
+            // Image Fallback Handling
+            if (banner) {
+                banner.onerror = function() {
+                    this.style.display = 'none';
+                    const fallbackTitle = document.createElement('h1');
+                    fallbackTitle.textContent = 'LightRides';
+                    fallbackTitle.style.marginBottom = '1rem';
+                    document.body.insertBefore(fallbackTitle, document.querySelector('.content-grid'));
+                };
+            }
+
+            // PDF Fallback Check
+            if (pdfIframe) {
+                pdfIframe.onload = function() {
+                    try {
+                        if (pdfIframe.contentDocument && pdfIframe.contentDocument.body.innerHTML.includes("PDF")) {
+                            throw new Error("PDF failed to load inside iframe");
+                        }
+                    } catch (e) {
+                        pdfIframe.parentElement.innerHTML = `
+                            <div class="fallback-container">
+                                <p>Viewer not supported. 
+                                <a href="LightRides - Brochure.pdf" target="_blank" rel="noopener">Open PDF directly</a></p>
+                            </div>
+                        `;
+                    }
+                };
+            }
+        });
+    </script>
+</body>
+</html>
