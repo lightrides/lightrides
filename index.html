@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LightRides | Rides brought to LIGHT!</title>
+    <!-- Favicon icon displayed in browser tab -->
     <link rel="icon" href="LightRides circle logo.png" type="image/png">
     
+    <!-- Google Fonts Preconnect and Import -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
+            /* Global theme color variables */
             --bg-color: #0b0f17;
             --card-bg: rgba(22, 28, 39, 0.7);
             --card-border: rgba(255, 255, 255, 0.08);
@@ -19,7 +22,7 @@
             --text-secondary: #94a3b8;
             --accent-glow: rgba(0, 183, 255, 0.15);
             
-            /* Brand Colors */
+            /* Brand Link Badge Colors */
             --crimson-color: #418F3B;
             --etsy-color: #f16521;
             --youtube-color: #ff0000;
@@ -28,12 +31,14 @@
             --discord-color: #5865f2;
         }
 
+        /* CSS Reset for consistent margins and sizing */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
+        /* Page Body styling with ambient background gradients */
         body {
             background-color: var(--bg-color);
             background-image: 
@@ -46,8 +51,45 @@
             flex-direction: column;
             align-items: center;
             padding: 2rem 1rem;
+            position: relative;
+            overflow-x: hidden;
         }
 
+        /* --- Falling Snow Animation Styles --- */
+        .snow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Allows clicking through snow */
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            background: #ffffff;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+            50% {
+                transform: translateY(50vh) translateX(20px);
+            }
+            100% {
+                transform: translateY(105vh) translateX(-20px);
+            }
+        }
+        /* ------------------------------------- */
+
+        /* Main Container Layout */
         .container {
             width: 100%;
             max-width: 850px;
@@ -55,9 +97,10 @@
             flex-direction: column;
             align-items: center;
             gap: 2rem;
+            z-index: 2; /* Ensures content sits above background snow */
         }
 
-        /* Banner Logo */
+        /* Banner Logo Wrapper */
         .banner-wrapper {
             width: 100%;
             display: flex;
@@ -76,7 +119,7 @@
             transform: scale(1.02);
         }
 
-        /* Layout Grid: Links on Left, Video on Right */
+        /* Two-Column Content Grid (Links on Left, Video on Right) */
         .content-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -142,7 +185,7 @@
             text-overflow: ellipsis;
         }
 
-        /* Custom Brand Badge Colors */
+        /* Brand Badge Color Classes */
         .bg-crimson { background-color: var(--crimson-color); }
         .bg-etsy { background-color: var(--etsy-color); }
         .bg-youtube { background-color: var(--youtube-color); }
@@ -150,7 +193,7 @@
         .bg-instagram { background-color: var(--instagram-color); }
         .bg-discord { background-color: var(--discord-color); }
 
-        /* Media / Video Card */
+        /* Video Card Styles */
         .video-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -162,22 +205,22 @@
         }
 
         .card-header {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.6rem;
-    display: flex;
-    align-items: center;
-    justify-content: center; /* <--- ADD THIS LINE */
-    gap: 0.5rem;
-}
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Centers the header text horizontally */
+            gap: 0.5rem;
+        }
 
         .aspect-ratio-box {
             position: relative;
             width: 100%;
-            padding-bottom: 56.25%; /* 16:9 ratio */
+            padding-bottom: 56.25%; /* Maintains 16:9 ratio */
             height: 0;
             background: #000;
             border-radius: 10px;
@@ -193,7 +236,7 @@
             border: none;
         }
 
-        /* Divider Line */
+        /* Horizontal Divider Line */
         .divider {
             width: 100%;
             height: 1px;
@@ -201,7 +244,7 @@
             margin: 0.5rem 0;
         }
 
-        /* Brochure Section */
+        /* Brochure PDF Section */
         .brochure-section {
             width: 100%;
             display: flex;
@@ -247,7 +290,7 @@
             text-decoration: underline;
         }
 
-        /* Mobile Responsive Adjustments */
+        /* Mobile Responsiveness (screens under 768px wide) */
         @media (max-width: 768px) {
             body {
                 padding: 1.25rem 0.75rem;
@@ -283,13 +326,18 @@
 </head>
 <body>
 
+    <!-- Target container for the falling snow particles -->
+    <div class="snow-container"></div>
+
     <main class="container">
+        <!-- Banner Logo Image -->
         <div class="banner-wrapper">
             <img src="lightrides site banner.png" alt="LightRides" class="site-banner">
         </div>
 
         <div class="content-grid">
             
+            <!-- Links and Social Navigation List -->
             <nav class="button-list">
 
                 <a href="https://amusementlabs.etsy.com/listing/4422488805/christmas-light-bulb-pins-full-set-of" target="_blank" rel="noopener noreferrer" class="link-item">
@@ -342,6 +390,7 @@
 
             </nav>
 
+            <!-- Embedded YouTube Video Card -->
             <div class="video-card">
                 <div class="card-header">
                     Latest 'How It Works' Video
@@ -360,6 +409,7 @@
 
         <div class="divider"></div>
 
+        <!-- Brochure Section -->
         <section class="brochure-section">
             <h2 class="brochure-title">Want to bring LightRides to your park?</h2>
 
@@ -380,7 +430,27 @@
             const banner = document.querySelector('.site-banner');
             const pdfIframe = document.querySelector('.document-window iframe');
 
-            // Image Fallback
+            // --- Falling Snow Generator Script ---
+            const snowContainer = document.querySelector('.snow-container');
+            const snowflakeCount = 40; // Change this number to increase/decrease snow density
+
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                
+                const size = Math.random() * 4 + 2 + 'px';
+                snowflake.style.width = size;
+                snowflake.style.height = size;
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.animationDuration = Math.random() * 5 + 3 + 's';
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+                snowflake.style.opacity = Math.random() * 0.6 + 0.2;
+
+                snowContainer.appendChild(snowflake);
+            }
+            // ------------------------------------
+
+            // Image Fallback Handling
             if (banner) {
                 banner.onerror = function() {
                     this.style.display = 'none';
