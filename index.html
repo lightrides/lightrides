@@ -60,10 +60,10 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
+            width: 100vw;
             height: 90px;
             pointer-events: none;
-            z-index: 10;
+            z-index: 100;
             overflow: hidden;
         }
 
@@ -73,7 +73,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 80px;
+            height: 90px;
             pointer-events: none;
         }
 
@@ -194,4 +194,278 @@
         }
 
         .site-banner {
-            max-width
+            max-width: 340px;
+            width: 80%;
+            height: auto;
+            filter: drop-shadow(0 0 25px var(--accent-glow));
+            transition: transform 0.3s ease;
+        }
+
+        .site-banner:hover {
+            transform: scale(1.02);
+        }
+
+        /* Two-Column Content Grid (Links on Left, Video on Right) */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            width: 100%;
+            align-items: start;
+        }
+
+        /* Vertical Buttons List */
+        .button-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            width: 100%;
+        }
+
+        .link-item {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            padding: 0.5rem 0.85rem 0.5rem 0.5rem;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .link-item:hover {
+            transform: translateX(4px);
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            padding: 0.55rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #ffffff;
+            white-space: nowrap;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-badge svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        .link-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.25;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Brand Badge Color Classes */
+        .bg-crimson { background-color: var(--crimson-color); }
+        .bg-etsy { background-color: var(--etsy-color); }
+        .bg-youtube { background-color: var(--youtube-color); }
+        .bg-patreon { background-color: var(--patreon-color); }
+        .bg-instagram { background-color: var(--instagram-color); }
+        .bg-discord { background-color: var(--discord-color); }
+
+        /* Video Card Styles */
+        .video-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 0.85rem;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            width: 100%;
+        }
+
+        .card-header {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Centers the header text horizontally */
+            gap: 0.5rem;
+        }
+
+        .aspect-ratio-box {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* Maintains 16:9 ratio */
+            height: 0;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .aspect-ratio-box iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Horizontal Divider Line */
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--card-border), transparent);
+            margin: 0.5rem 0;
+        }
+
+        /* Brochure PDF Section */
+        .brochure-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .brochure-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: -0.01em;
+            background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .document-window {
+            width: 100%;
+            height: 60vh;
+            max-height: 650px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .fallback-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .fallback-container a {
+            color: #00b7ff;
+            text-decoration: underline;
+        }
+
+        /* Mobile Responsiveness (screens under 768px wide) */
+        @media (max-width: 768px) {
+            body {
+                padding: 1.25rem 0.75rem;
+            }
+
+            .container {
+                gap: 1.5rem;
+                margin-top: 2rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .link-item {
+                padding: 0.45rem 0.75rem 0.45rem 0.45rem;
+            }
+
+            .btn-badge {
+                padding: 0.5rem 0.85rem;
+                font-size: 0.8rem;
+            }
+
+            .link-desc {
+                font-size: 0.75rem;
+            }
+
+            .document-window {
+                height: 50vh;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Swagged String Lights Container -->
+    <div class="swag-lights-container">
+        <svg class="swag-cable-svg" width="100%" height="90">
+            <path class="swag-cable-path" d="" />
+        </svg>
+    </div>
+
+    <!-- Target container for the falling snow particles -->
+    <div class="snow-container"></div>
+
+    <main class="container">
+        <!-- Banner Logo Image -->
+        <div class="banner-wrapper">
+            <img src="lightrides site banner.png" alt="LightRides" class="site-banner">
+        </div>
+
+        <div class="content-grid">
+            
+            <!-- Links and Social Navigation List -->
+            <nav class="button-list">
+
+                <a href="https://amusementlabs.etsy.com/listing/4422488805/christmas-light-bulb-pins-full-set-of" target="_blank" rel="noopener noreferrer" class="link-item">
+                    <span class="btn-badge bg-crimson">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        StarBright Holiday Pins
+                    </span>
+                    <span class="link-desc">Get the full set!</span>
+                </a>
+                
+                <a href="https://amusementlabs.etsy.com" target="_blank" rel="noopener noreferrer" class="link-item">
+                    <span class="btn-badge bg-etsy">
+                        <svg viewBox="0 0 24 24"><path d="M9.18 18.06c-.15.82-.77 1.34-1.63 1.34-1.27 0-1.81-.97-1.81-2.4 0-2.3 1.27-5.32 3.14-5.32.74 0 1.28.43 1.46 1.09l.37-1.01h2.24l-1.8 8.94c-.2.98-.12 1.5.34 1.5.6 0 1.28-.68 1.83-1.84l.65.46c-.92 1.8-2.18 2.62-3.37 2.62-1.39 0-1.92-.86-1.62-2.31l.2-1.07zm11.39-4.83c0 2.58-1.92 4.96-4.63 4.96-2.15 0-3.52-1.42-3.52-3.51 0-2.86 2.21-5.18 4.79-5.18 2.02 0 3.36 1.35 3.36 3.23l-.01.5zm-2.31-.83c0-.98-.53-1.65-1.38-1.65-1.07 0-2.03 1.15-2.03 2.52 0 .82.47 1.37 1.27 1.37.99 0 2.14-1.01 2.14-2.24z"/></svg>
+                        Etsy Store
+                    </span>
+                    <span class="link-desc">Unique LED Ride Models & more!</span>
+                </a>
+
+                <a href="https://www.youtube.com/@AmusementLabs" target="_blank" rel="noopener noreferrer" class="link-item">
+                    <span class="btn-badge bg-youtube">
+                        <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        YouTube
+                    </span>
+                    <span class="link-desc">Theme park engineering videos!</span>
+                </a>
+
+                <a href="https://www.patreon.com/cw/amusementlabs" target="_blank" rel="noopener noreferrer" class="link-item">
+                    <span class="btn-badge bg-patreon">
+                        <svg viewBox="0 0 24 24"><path d="M15.386 0c-4.764 0-8.64 3.876-8.64 8.64 0 4.75 3.876 8.613 8.64 8.613 4.75 0 8.614-3.864 8.614-8.613C24 3.876 20.136 0 15.386 0zM0 24h4.277V0H0v24z"/></svg>
+                        Patreon
+                    </span>
+                    <span class="link-desc">Get exclusive perks and discounts!</span>
+                </a>
+
+                <a href="https://www.instagram.com/amusementlabs/" target="_blank" rel="noopener noreferrer" class="link-item">
+                    <span class="btn-badge bg-instagram">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.
