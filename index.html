@@ -272,7 +272,7 @@
             border-radius: 50px;
             backdrop-filter: blur(10px);
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            min-width: 0; /* Prevents overflow */
+            min-width: 0;
         }
 
         .link-item:hover {
@@ -312,7 +312,12 @@
             text-overflow: ellipsis;
         }
 
-        /* --- Grid View Default Layout Mode (2x3 Grid of 3:4 Vertical Rectangles) --- */
+        /* Hide grid-specific elements by default in List View */
+        .grid-card-title, .grid-card-image, .grid-blurb-text, .grid-button-text {
+            display: none;
+        }
+
+        /* --- Grid View Layout Mode (2x3 Grid of 3:4 Vertical Rectangles) --- */
         .mode-grid .content-grid {
             display: flex;
             flex-direction: column;
@@ -343,9 +348,9 @@
             transform: translateY(-4px);
         }
 
-        /* Title at top of Grid Card */
-        .grid-card-title {
-            display: none;
+        /* Show grid elements in Grid View */
+        .mode-grid .grid-card-title {
+            display: block;
             font-size: 0.95rem;
             font-weight: 700;
             color: #ffffff;
@@ -354,11 +359,9 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
-        .mode-grid .grid-card-title { display: block; }
 
-        /* 1:1 Image in middle of Grid Card */
-        .grid-card-image {
-            display: none;
+        .mode-grid .grid-card-image {
+            display: block;
             width: 90px;
             height: 90px;
             max-width: 60%;
@@ -367,9 +370,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.4);
         }
-        .mode-grid .grid-card-image { display: block; }
 
-        /* Button element inside Grid Card */
         .mode-grid .btn-badge {
             width: 100%;
             justify-content: center;
@@ -380,18 +381,17 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        .grid-button-text { display: none; }
-        .mode-grid .grid-button-text { display: inline; }
-        .mode-grid .list-title-text { display: none; }
 
-        /* Blurb text at bottom of Grid Card */
-        .grid-blurb-text {
-            display: none;
+        .mode-grid .list-title-text { display: none; }
+        .mode-grid .grid-button-text { display: inline; }
+
+        .mode-grid .grid-blurb-text {
+            display: block;
             font-size: 0.75rem;
             color: var(--text-secondary);
             line-height: 1.25;
         }
-        .mode-grid .grid-blurb-text { display: block; }
+
         .mode-grid .link-desc { display: none; }
 
         /* Brand Badge Color Classes */
@@ -499,7 +499,7 @@
             text-decoration: underline;
         }
 
-        /* Mobile Responsiveness (Prevents Horizontal Scrolling) */
+        /* Mobile Responsiveness */
         @media (max-width: 768px) {
             body {
                 padding: 3.5rem 0.5rem 1.25rem 0.5rem;
@@ -512,14 +512,13 @@
                 gap: 1.25rem;
             }
 
-            /* Responsive 2-column Grid on Mobile: Allows scaling up to 3:5 aspect ratio */
             .mode-grid .button-list {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 0.6rem;
             }
 
             .mode-grid .link-item {
-                aspect-ratio: 3 / 5; /* Expands height ratio to 3:5 for mobile fit */
+                aspect-ratio: 3 / 5;
                 padding: 0.65rem 0.4rem;
             }
 
@@ -591,7 +590,7 @@
                     <span class="btn-badge bg-crimson">
                         <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                         <span class="list-title-text">StarBright Holiday Pins</span>
-                        <span class="grid-button-text">Get the full set!</span>
+                        <span class="grid-button-text">Custom Grid Text 1</span>
                     </span>
                     <span class="link-desc">Get the full set!</span>
                     <span class="grid-blurb-text">blurb 1 text</span>
@@ -604,7 +603,7 @@
                     <span class="btn-badge bg-etsy">
                         <svg viewBox="0 0 24 24"><path d="M9.18 18.06c-.15.82-.77 1.34-1.63 1.34-1.27 0-1.81-.97-1.81-2.4 0-2.3 1.27-5.32 3.14-5.32.74 0 1.28.43 1.46 1.09l.37-1.01h2.24l-1.8 8.94c-.2.98-.12 1.5.34 1.5.6 0 1.28-.68 1.83-1.84l.65.46c-.92 1.8-2.18 2.62-3.37 2.62-1.39 0-1.92-.86-1.62-2.31l.2-1.07zm11.39-4.83c0 2.58-1.92 4.96-4.63 4.96-2.15 0-3.52-1.42-3.52-3.51 0-2.86 2.21-5.18 4.79-5.18 2.02 0 3.36 1.35 3.36 3.23l-.01.5zm-2.31-.83c0-.98-.53-1.65-1.38-1.65-1.07 0-2.03 1.15-2.03 2.52 0 .82.47 1.37 1.27 1.37.99 0 2.14-1.01 2.14-2.24z"/></svg>
                         <span class="list-title-text">Etsy Store</span>
-                        <span class="grid-button-text">Unique LED Ride Models & more!</span>
+                        <span class="grid-button-text">Custom Grid Text 2</span>
                     </span>
                     <span class="link-desc">Unique LED Ride Models & more!</span>
                     <span class="grid-blurb-text">blurb 2 text</span>
@@ -617,7 +616,7 @@
                     <span class="btn-badge bg-youtube">
                         <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
                         <span class="list-title-text">YouTube</span>
-                        <span class="grid-button-text">Theme park engineering videos!</span>
+                        <span class="grid-button-text">Custom Grid Text 3</span>
                     </span>
                     <span class="link-desc">Theme park engineering videos!</span>
                     <span class="grid-blurb-text">blurb 3 text</span>
@@ -630,7 +629,7 @@
                     <span class="btn-badge bg-patreon">
                         <svg viewBox="0 0 24 24"><path d="M15.386 0c-4.764 0-8.64 3.876-8.64 8.64 0 4.75 3.876 8.613 8.64 8.613 4.75 0 8.614-3.864 8.614-8.613C24 3.876 20.136 0 15.386 0zM0 24h4.277V0H0v24z"/></svg>
                         <span class="list-title-text">Patreon</span>
-                        <span class="grid-button-text">Get exclusive perks and discounts!</span>
+                        <span class="grid-button-text">Custom Grid Text 4</span>
                     </span>
                     <span class="link-desc">Get exclusive perks and discounts!</span>
                     <span class="grid-blurb-text">blurb 4 text</span>
@@ -643,7 +642,7 @@
                     <span class="btn-badge bg-instagram">
                         <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                         <span class="list-title-text">Instagram</span>
-                        <span class="grid-button-text">Daily updates, giveaways and more!</span>
+                        <span class="grid-button-text">Custom Grid Text 5</span>
                     </span>
                     <span class="link-desc">Daily updates, giveaways and more!</span>
                     <span class="grid-blurb-text">blurb 5 text</span>
@@ -656,7 +655,7 @@
                     <span class="btn-badge bg-discord">
                         <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
                         <span class="list-title-text">Discord</span>
-                        <span class="grid-button-text">Join our theme park nerd community!</span>
+                        <span class="grid-button-text">Custom Grid Text 6</span>
                     </span>
                     <span class="link-desc">Join our theme park nerd community!</span>
                     <span class="grid-blurb-text">blurb 6 text</span>
