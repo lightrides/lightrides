@@ -180,21 +180,21 @@
             transform: scale(1.02);
         }
 
-        /* --- View Toggle Switch Styles --- */
+        /* --- Graphical View Toggle Switch Styles --- */
         .toggle-section {
             width: 100%;
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.5rem;
         }
 
-        .toggle-label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+        .toggle-icon {
+            width: 18px;
+            height: 18px;
+            fill: var(--text-secondary);
+            display: flex;
+            align-items: center;
         }
 
         .toggle-switch {
@@ -243,7 +243,7 @@
         }
 
         /* --- Content Layout Modes --- */
-        /* List Mode Container */
+        /* List Mode Default Layout (Links on Left, Video on Right) */
         .content-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -309,11 +309,11 @@
             text-overflow: ellipsis;
         }
 
-        /* --- Grid View Layout Mode (2x3 Grid of 4:3 Rectangles) --- */
+        /* --- Grid View Default Layout Mode (2x3 Grid of 3:4 Vertical Rectangles with Video Below) --- */
         .mode-grid .content-grid {
             display: flex;
-            flex-direction: column-reverse; /* Places video at bottom or keeps video separate */
-            gap: 2rem;
+            flex-direction: column; /* Stacks buttons on top, video below */
+            gap: 1.5rem;
         }
 
         .mode-grid .button-list {
@@ -323,11 +323,11 @@
         }
 
         .mode-grid .link-item {
-            aspect-ratio: 4 / 3; /* 4:3 Aspect Ratio Rectangles */
+            aspect-ratio: 3 / 4; /* 3:4 Vertical Aspect Ratio Rectangles */
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem;
+            padding: 1.2rem 1rem;
             border-radius: 16px;
             text-align: center;
             background: var(--card-bg);
@@ -351,8 +351,8 @@
         /* 1:1 Image in middle of Grid Card */
         .grid-card-image {
             display: none;
-            width: 70px;
-            height: 70px;
+            width: 90px;
+            height: 90px;
             aspect-ratio: 1 / 1;
             object-fit: cover;
             border-radius: 10px;
@@ -364,8 +364,9 @@
         .mode-grid .btn-badge {
             width: 100%;
             justify-content: center;
-            padding: 0.45rem 0.75rem;
+            padding: 0.5rem 0.75rem;
             font-size: 0.8rem;
+            border-radius: 30px;
         }
         .grid-button-text { display: none; }
         .mode-grid .grid-button-text { display: inline; }
@@ -376,7 +377,7 @@
             display: none;
             font-size: 0.75rem;
             color: var(--text-secondary);
-            line-height: 1.2;
+            line-height: 1.25;
         }
         .mode-grid .grid-blurb-text { display: block; }
         .mode-grid .link-desc { display: none; } /* Hide list tagline in grid view */
@@ -515,7 +516,7 @@
         }
     </style>
 </head>
-<body class="mode-list">
+<body class="mode-grid"> <!-- Grid View set as default -->
 
     <!-- Holiday String Green Cord -->
     <div class="lights-wire-top"></div>
@@ -532,13 +533,20 @@
             <img src="lightrides site banner.png" alt="LightRides" class="site-banner">
         </div>
 
-        <!-- View Toggle Switch -->
+        <!-- Graphical View Toggle Switch (2x2 Grid vs 3 Lines) -->
         <div class="toggle-section">
-            <span class="toggle-label">Grid View</span>
+            <!-- 2x2 Grid Icon (Left) -->
+            <span class="toggle-icon">
+                <svg viewBox="0 0 24 24"><path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/></svg>
+            </span>
             <label class="toggle-switch">
-                <input type="checkbox" id="viewToggle">
+                <input type="checkbox" id="viewToggle" checked> <!-- Checked by default for Grid View -->
                 <span class="slider"></span>
             </label>
+            <!-- 3 Horizontal Lines Icon (Right) -->
+            <span class="toggle-icon">
+                <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+            </span>
         </div>
 
         <div class="content-grid">
@@ -674,7 +682,7 @@
             const pdfIframe = document.querySelector('.document-window iframe');
             const viewToggle = document.getElementById('viewToggle');
 
-            // --- View Switcher (List View vs Grid View) ---
+            // --- View Switcher (Grid View Default vs List View) ---
             viewToggle.addEventListener('change', function() {
                 if (this.checked) {
                     document.body.classList.remove('mode-list');
@@ -742,7 +750,7 @@
                 document.querySelector('.snow-container').style.display = 'none';
             }
 
-            // Image Fallback Handling
+    // Image Fallback Handling
             if (banner) {
                 banner.onerror = function() {
                     this.style.display = 'none';
