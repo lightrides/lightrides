@@ -360,16 +360,16 @@
             white-space: nowrap;
         }
 
-        /* Image matches the width of the fake button with buffer margin */
+        /* 1:1 Aspect Ratio Image matching the width of the button with a side buffer border */
         .mode-grid .grid-card-image {
             display: block;
-            width: calc(100% - 1rem); /* Full card width minus a 0.5rem buffer on each side */
-            max-height: 130px;
+            width: 100%;
+            max-width: calc(100% - 0.75rem); /* Matches fake button width with a side buffer border */
+            height: auto;
+            aspect-ratio: 1 / 1;
             object-fit: cover;
             border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            margin: 0.4rem 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
         }
 
         .mode-grid .btn-badge {
@@ -536,11 +536,6 @@
 
             .grid-card-title {
                 font-size: 0.75rem;
-            }
-
-            .mode-grid .grid-card-image {
-                width: calc(100% - 0.4rem);
-                max-height: 85px;
             }
 
             .grid-blurb-text {
