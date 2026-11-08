@@ -309,7 +309,7 @@
             text-overflow: ellipsis;
         }
 
-        /* --- Grid View Default Layout Mode (2x3 Grid of 3:4 Vertical Rectangles with Video Below) --- */
+        /* --- Grid View Layout Mode (2x3 Grid of 3:4 Vertical Rectangles with Video Below) --- */
         .mode-grid .content-grid {
             display: flex;
             flex-direction: column;
@@ -500,15 +500,30 @@
                 gap: 1.5rem;
             }
 
+            /* Maintained 2-column grid format in mobile grid mode */
             .mode-grid .button-list {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
             }
 
             .link-item { padding: 0.45rem 0.75rem 0.45rem 0.45rem; }
 
             .btn-badge {
-                padding: 0.5rem 0.85rem;
-                font-size: 0.8rem;
+                padding: 0.4rem 0.5rem;
+                font-size: 0.75rem;
+            }
+
+            .grid-card-title {
+                font-size: 0.85rem;
+            }
+
+            .grid-card-image {
+                width: 65px;
+                height: 65px;
+            }
+
+            .grid-blurb-text {
+                font-size: 0.65rem;
             }
 
             .link-desc { font-size: 0.75rem; }
