@@ -50,9 +50,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 4.5rem 1rem 2.5rem 1rem;
+            padding: 4.5rem 0.75rem 2.5rem 0.75rem;
             position: relative;
-            overflow-x: hidden;
+            overflow-x: hidden; /* Prevents unwanted horizontal scroll overflows */
+            width: 100%;
         }
 
         /* --- Top Holiday String Lights Styles --- */
@@ -158,6 +159,7 @@
             align-items: center;
             gap: 2rem;
             z-index: 2;
+            margin: 0 auto;
         }
 
         /* Banner Logo Wrapper */
@@ -309,7 +311,7 @@
             text-overflow: ellipsis;
         }
 
-        /* --- Grid View Layout Mode (2x3 Grid of 3:4 Vertical Rectangles with Video Below) --- */
+        /* --- Grid View Default Layout Mode (2x3 Grid with Video Below) --- */
         .mode-grid .content-grid {
             display: flex;
             flex-direction: column;
@@ -318,44 +320,48 @@
 
         .mode-grid .button-list {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.25rem;
+            grid-template-columns: repeat(2, minmax(0, 1fr)); /* Fluid 2-column grid that shrinks safely */
+            gap: 0.75rem;
         }
 
         .mode-grid .link-item {
-            aspect-ratio: 3 / 4;
+            aspect-ratio: 3 / 4; /* Vertical orientation ratio */
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 1.2rem 1rem;
-            border-radius: 16px;
+            padding: 0.8rem 0.5rem;
+            border-radius: 14px;
             text-align: center;
             background: var(--card-bg);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            width: 100%;
         }
 
         .mode-grid .link-item:hover {
-            transform: translateY(-4px);
+            transform: translateY(-3px);
         }
 
         /* Title at top of Grid Card */
         .grid-card-title {
             display: none;
-            font-size: 0.95rem;
+            font-size: clamp(0.75rem, 2.5vw, 0.9rem); /* Responsive fluid text sizing */
             font-weight: 700;
             color: #ffffff;
             width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         .mode-grid .grid-card-title { display: block; }
 
         /* 1:1 Image in middle of Grid Card */
         .grid-card-image {
             display: none;
-            width: 90px;
-            height: 90px;
+            width: clamp(50px, 18vw, 80px); /* Scales down smoothly on smaller screens */
+            height: clamp(50px, 18vw, 80px);
             aspect-ratio: 1 / 1;
             object-fit: cover;
-            border-radius: 10px;
+            border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.4);
         }
         .mode-grid .grid-card-image { display: block; }
@@ -364,9 +370,11 @@
         .mode-grid .btn-badge {
             width: 100%;
             justify-content: center;
-            padding: 0.5rem 0.75rem;
-            font-size: 0.8rem;
-            border-radius: 30px;
+            padding: 0.35rem 0.4rem;
+            font-size: clamp(0.65rem, 2vw, 0.75rem);
+            border-radius: 20px;
+            white-space: normal; /* Allows button text to wrap cleanly if narrow */
+            text-align: center;
         }
         .grid-button-text { display: none; }
         .mode-grid .grid-button-text { display: inline; }
@@ -375,9 +383,11 @@
         /* Blurb text at bottom of Grid Card */
         .grid-blurb-text {
             display: none;
-            font-size: 0.75rem;
+            font-size: clamp(0.6rem, 1.8vw, 0.7rem);
             color: var(--text-secondary);
-            line-height: 1.25;
+            line-height: 1.15;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .mode-grid .grid-blurb-text { display: block; }
         .mode-grid .link-desc { display: none; }
@@ -487,10 +497,18 @@
             text-decoration: underline;
         }
 
-        /* Mobile Responsiveness */
+        /* Mobile Responsiveness Fine-Tuning */
+        @media (max-width: 480px) {
+            /* Allows ratio to stretch up to 3:6 on very narrow mobile screens */
+            .mode-grid .link-item {
+                aspect-ratio: 3 / 6; 
+                padding: 0.6rem 0.35rem;
+            }
+        }
+
         @media (max-width: 768px) {
             body {
-                padding: 4rem 0.75rem 1.25rem 0.75rem;
+                padding: 4rem 0.5rem 1.25rem 0.5rem;
             }
 
             .container { gap: 1.5rem; }
@@ -500,33 +518,6 @@
                 gap: 1.5rem;
             }
 
-            /* Maintained 2-column grid format in mobile grid mode */
-            .mode-grid .button-list {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.75rem;
-            }
-
-            .link-item { padding: 0.45rem 0.75rem 0.45rem 0.45rem; }
-
-            .btn-badge {
-                padding: 0.4rem 0.5rem;
-                font-size: 0.75rem;
-            }
-
-            .grid-card-title {
-                font-size: 0.85rem;
-            }
-
-            .grid-card-image {
-                width: 65px;
-                height: 65px;
-            }
-
-            .grid-blurb-text {
-                font-size: 0.65rem;
-            }
-
-            .link-desc { font-size: 0.75rem; }
             .document-window { height: 50vh; }
         }
     </style>
