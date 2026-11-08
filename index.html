@@ -243,7 +243,7 @@
         }
 
         /* --- Content Layout Modes --- */
-        /* List Mode Default Layout (Links on Left, Video on Right) */
+        /* List Mode Layout (Links on Left, Video on Right) */
         .content-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -312,18 +312,18 @@
         /* --- Grid View Default Layout Mode (2x3 Grid of 3:4 Vertical Rectangles with Video Below) --- */
         .mode-grid .content-grid {
             display: flex;
-            flex-direction: column; /* Stacks buttons on top, video below */
+            flex-direction: column;
             gap: 1.5rem;
         }
 
         .mode-grid .button-list {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 2 Columns */
+            grid-template-columns: repeat(2, 1fr);
             gap: 1.25rem;
         }
 
         .mode-grid .link-item {
-            aspect-ratio: 3 / 4; /* 3:4 Vertical Aspect Ratio Rectangles */
+            aspect-ratio: 3 / 4;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
@@ -380,7 +380,7 @@
             line-height: 1.25;
         }
         .mode-grid .grid-blurb-text { display: block; }
-        .mode-grid .link-desc { display: none; } /* Hide list tagline in grid view */
+        .mode-grid .link-desc { display: none; }
 
         /* Brand Badge Color Classes */
         .bg-crimson { background-color: var(--crimson-color); }
@@ -501,7 +501,7 @@
             }
 
             .mode-grid .button-list {
-                grid-template-columns: 1fr; /* Single column grid on smaller mobile screens */
+                grid-template-columns: 1fr;
             }
 
             .link-item { padding: 0.45rem 0.75rem 0.45rem 0.45rem; }
@@ -533,19 +533,19 @@
             <img src="lightrides site banner.png" alt="LightRides" class="site-banner">
         </div>
 
-        <!-- Graphical View Toggle Switch (2x2 Grid vs 3 Lines) -->
+        <!-- Graphical View Toggle Switch (3 Lines on Left, 2x2 Grid on Right) -->
         <div class="toggle-section">
-            <!-- 2x2 Grid Icon (Left) -->
-            <span class="toggle-icon">
-                <svg viewBox="0 0 24 24"><path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/></svg>
-            </span>
-            <label class="toggle-switch">
-                <input type="checkbox" id="viewToggle" checked> <!-- Checked by default for Grid View -->
-                <span class="slider"></span>
-            </label>
-            <!-- 3 Horizontal Lines Icon (Right) -->
+            <!-- 3 Horizontal Lines Icon (Left - List View) -->
             <span class="toggle-icon">
                 <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+            </span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="viewToggle" checked> <!-- Checked by default for Grid View on right -->
+                <span class="slider"></span>
+            </label>
+            <!-- 2x2 Grid Icon (Right - Grid View) -->
+            <span class="toggle-icon">
+                <svg viewBox="0 0 24 24"><path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/></svg>
             </span>
         </div>
 
@@ -750,7 +750,7 @@
                 document.querySelector('.snow-container').style.display = 'none';
             }
 
-    // Image Fallback Handling
+            // Image Fallback Handling
             if (banner) {
                 banner.onerror = function() {
                     this.style.display = 'none';
