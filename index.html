@@ -366,20 +366,20 @@
             background: #33c5ff;
         }
 
-        /* --- Graphical View Toggle Switch Styles (Absolute Upper-Right) --- */
+        /* --- Graphical View Toggle Switch Styles (Bottom Centered) --- */
         .toggle-section {
-            position: fixed;
-            top: 1.25rem;
-            right: 1.25rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            z-index: 50;
-            background: rgba(11, 19, 41, 0.6);
-            padding: 0.35rem 0.65rem;
-            border-radius: 20px;
-            backdrop-filter: blur(8px);
+            justify-content: center;
+            gap: 0.6rem;
+            background: var(--card-bg);
+            padding: 0.5rem 1rem;
+            border-radius: 24px;
+            backdrop-filter: blur(10px);
             border: 1px solid var(--card-border);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+            margin: 0.5rem auto;
+            width: fit-content;
         }
 
         .toggle-icon {
@@ -730,11 +730,6 @@
 
             .link-desc { font-size: 0.75rem; }
             .document-window { height: 50vh; }
-            
-            .toggle-section {
-                top: 0.75rem;
-                right: 0.75rem;
-            }
         }
     </style>
 </head>
@@ -748,22 +743,6 @@
 
     <!-- Target container for the falling snow particles -->
     <div class="snow-container"></div>
-
-    <!-- Graphical View Toggle Switch (Absolute Upper-Right Corner) -->
-    <div class="toggle-section">
-        <!-- 3 Horizontal Lines Icon (Left - List View) -->
-        <span class="toggle-icon">
-            <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
-        </span>
-        <label class="toggle-switch">
-            <input type="checkbox" id="viewToggle" checked> <!-- Checked by default for Grid View on right -->
-            <span class="slider"></span>
-        </label>
-        <!-- 2x2 Grid Icon (Right - Grid View) -->
-        <span class="toggle-icon">
-            <svg viewBox="0 0 24 24"><path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/></svg>
-        </span>
-    </div>
 
     <main class="container">
         <!-- Fading Banner Logo Rotator -->
@@ -898,6 +877,20 @@
 
         </div>
 
+        <!-- Graphical View Toggle Switch (Dynamic Placement via JS at bottom of content) -->
+        <div class="toggle-section" id="viewToggleContainer">
+            <span class="toggle-icon">
+                <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+            </span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="viewToggle" checked>
+                <span class="slider"></span>
+            </label>
+            <span class="toggle-icon">
+                <svg viewBox="0 0 24 24"><path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/></svg>
+            </span>
+        </div>
+
         <div class="divider"></div>
 
         <!-- Brochure Section -->
@@ -927,10 +920,11 @@
 
             const pdfIframe = document.querySelector('.document-window iframe');
             const viewToggle = document.getElementById('viewToggle');
-            const mainContainer = document.querySelector('.main-container, .container');
+            const toggleSection = document.getElementById('viewToggleContainer');
             const bannerWrapper = document.querySelector('.banner-wrapper');
             const qrButton = document.getElementById('openQrModal');
             const contentGrid = document.querySelector('.content-grid');
+            const mainContainer = document.querySelector('.container');
 
             // --- Banner Fading Carousel Script ---
             const banners = document.querySelectorAll('.site-banner');
@@ -980,23 +974,33 @@
                 });
             });
 
-            // --- Dynamic View Switcher & QR Button Placement Handler ---
+            // --- Dynamic View Switcher & Element Placement Handler ---
             function updateLayoutState() {
+                const divider = document.querySelector('.divider');
+                
                 if (viewToggle.checked) {
-                    // Grid View: QR button sits right under the banner
+                    // Grid View: QR button under banner; Toggle under content grid
                     document.body.classList.remove('mode-list');
                     document.body.classList.add('mode-grid');
+                    
                     if (qrButton.parentNode !== mainContainer) {
                         bannerWrapper.after(qrButton);
                         qrButton.style.marginBottom = "0";
                     }
+                    if (toggleSection.nextElementSibling !== divider) {
+                        contentGrid.after(toggleSection);
+                    }
                 } else {
-                    // List View: QR button moves below the links list and above video player
+                    // List View: QR button above video player; Toggle under content grid
                     document.body.classList.remove('mode-grid');
                     document.body.classList.add('mode-list');
+                    
                     if (qrButton.parentNode !== contentGrid) {
                         contentGrid.insertBefore(qrButton, contentGrid.firstChild);
                         qrButton.style.marginBottom = "1rem";
+                    }
+                    if (toggleSection.nextElementSibling !== divider) {
+                        contentGrid.after(toggleSection);
                     }
                 }
             }
