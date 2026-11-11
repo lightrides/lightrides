@@ -157,7 +157,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1.5rem;
+            gap: 1.25rem;
             z-index: 2;
         }
 
@@ -169,7 +169,7 @@
             margin-top: 0.25rem;
             position: relative;
             max-width: 340px;
-            height: 120px; /* Adjust based on banner aspect ratio */
+            height: 120px;
         }
 
         .site-banner {
@@ -191,44 +191,60 @@
             pointer-events: auto;
         }
 
-        /* --- QR Code Share Button Banner --- */
+        /* --- QR Code Share Button Banner with Gold Pulsing Shadow --- */
+        @keyframes gold-pulse {
+            0% {
+                box-shadow: 0 0 10px rgba(255, 215, 0, 0.4), 0 0 20px rgba(255, 165, 0, 0.2);
+                border-color: rgba(255, 215, 0, 0.6);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 35px rgba(255, 165, 0, 0.4);
+                border-color: rgba(255, 215, 0, 1);
+            }
+            100% {
+                box-shadow: 0 0 10px rgba(255, 215, 0, 0.4), 0 0 20px rgba(255, 165, 0, 0.2);
+                border-color: rgba(255, 215, 0, 0.6);
+            }
+        }
+
         .qr-button {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.65rem;
-            background: rgba(22, 32, 51, 0.85);
-            border: 1px solid rgba(0, 183, 255, 0.3);
+            background: rgba(22, 32, 51, 0.9);
+            border: 2px solid rgba(255, 215, 0, 0.7);
             padding: 0.65rem 1.25rem;
             border-radius: 30px;
             cursor: pointer;
             backdrop-filter: blur(10px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            animation: gold-pulse 3s infinite ease-in-out;
             transition: all 0.25s ease;
             width: 100%;
             max-width: 480px;
             text-align: center;
-            margin-top: -4.0rem;
+            margin-top: -1.25rem;
         }
 
         .qr-button:hover {
             background: rgba(30, 45, 71, 0.95);
-            border-color: rgba(0, 183, 255, 0.6);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 183, 255, 0.2);
         }
 
         .qr-btn-text {
             font-size: 0.85rem;
             font-weight: 600;
             color: #ffffff;
+            line-height: 1.3;
         }
 
         .qr-btn-img {
-            width: 75px;
-            height: 75px;
+            width: 48px;
+            height: 48px;
             object-fit: cover;
-            border-radius: 4px;
+            border-radius: 6px;
+            border: 1px solid var(--card-border);
+            flex-shrink: 0;
         }
 
         /* --- Modal Popup Bubble Window Styles --- */
@@ -238,7 +254,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7); /* Darkens background while keeping it partly visible */
+            background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(4px);
             display: flex;
             align-items: center;
@@ -265,7 +281,7 @@
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 183, 255, 0.1);
             display: flex;
             flex-direction: column;
-            gap: 1.25s;
+            gap: 1.25rem;
             transform: scale(0.95);
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -310,12 +326,13 @@
             font-size: 0.85rem;
             color: #ffffff;
             line-height: 1.4;
+            text-align: center;
         }
 
         .modal-actions {
             display: flex;
             gap: 0.75rem;
-            margin-top: 0.5rem;
+            margin-top: 0.25rem;
         }
 
         .modal-btn {
@@ -349,18 +366,25 @@
             background: #33c5ff;
         }
 
-        /* --- Graphical View Toggle Switch Styles --- */
+        /* --- Graphical View Toggle Switch Styles (Absolute Upper-Right) --- */
         .toggle-section {
-            width: 100%;
+            position: fixed;
+            top: 1.25rem;
+            right: 1.25rem;
             display: flex;
-            justify-content: flex-end;
             align-items: center;
             gap: 0.5rem;
+            z-index: 50;
+            background: rgba(11, 19, 41, 0.6);
+            padding: 0.35rem 0.65rem;
+            border-radius: 20px;
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--card-border);
         }
 
         .toggle-icon {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             fill: var(--text-secondary);
             display: flex;
             align-items: center;
@@ -369,8 +393,8 @@
         .toggle-switch {
             position: relative;
             display: inline-block;
-            width: 50px;
-            height: 26px;
+            width: 44px;
+            height: 24px;
         }
 
         .toggle-switch input {
@@ -393,8 +417,8 @@
         .slider:before {
             position: absolute;
             content: "";
-            height: 18px;
-            width: 18px;
+            height: 16px;
+            width: 16px;
             left: 3px;
             bottom: 3px;
             background-color: #ffffff;
@@ -408,11 +432,10 @@
         }
 
         input:checked + .slider:before {
-            transform: translateX(24px);
+            transform: translateX(20px);
         }
 
         /* --- Content Layout Modes --- */
-        /* List Mode Layout (Links on Left, Video on Right) */
         .content-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -421,7 +444,6 @@
             align-items: start;
         }
 
-        /* Vertical Buttons List */
         .button-list {
             display: flex;
             flex-direction: column;
@@ -480,12 +502,11 @@
             text-overflow: ellipsis;
         }
 
-        /* Hide grid-specific elements by default in List View */
         .grid-card-title, .grid-card-image, .grid-blurb-text, .grid-button-text {
             display: none;
         }
 
-        /* --- Grid View Layout Mode (2x3 Grid of 3:4 Vertical Rectangles) --- */
+        /* --- Grid View Layout Mode --- */
         .mode-grid .content-grid {
             display: flex;
             flex-direction: column;
@@ -516,7 +537,6 @@
             transform: translateY(-4px);
         }
 
-        /* Show grid elements in Grid View */
         .mode-grid .grid-card-title {
             display: block;
             font-size: 0.95rem;
@@ -710,6 +730,11 @@
 
             .link-desc { font-size: 0.75rem; }
             .document-window { height: 50vh; }
+            
+            .toggle-section {
+                top: 0.75rem;
+                right: 0.75rem;
+            }
         }
     </style>
 </head>
@@ -724,6 +749,22 @@
     <!-- Target container for the falling snow particles -->
     <div class="snow-container"></div>
 
+    <!-- Graphical View Toggle Switch (Absolute Upper-Right Corner) -->
+    <div class="toggle-section">
+        <!-- 3 Horizontal Lines Icon (Left - List View) -->
+        <span class="toggle-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+        </span>
+        <label class="toggle-switch">
+            <input type="checkbox" id="viewToggle" checked> <!-- Checked by default for Grid View on right -->
+            <span class="slider"></span>
+        </label>
+        <!-- 2x2 Grid Icon (Right - Grid View) -->
+        <span class="toggle-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/></svg>
+        </span>
+    </div>
+
     <main class="container">
         <!-- Fading Banner Logo Rotator -->
         <div class="banner-wrapper">
@@ -732,7 +773,7 @@
             <img src="lightrides site banner 3.png" alt="LightRides Banner 3" class="site-banner">
         </div>
 
-        <!-- QR Code Share Button -->
+        <!-- QR Code Share Button (Appears under banner in Grid view, moves below list in List view via JS) -->
         <div class="qr-button" id="openQrModal">
             <span class="qr-btn-text">Here from a board, pin, or trinket trade?<br>Tap here to share!</span>
             <img src="scanned qr button image.png" alt="QR Icon" class="qr-btn-img">
@@ -753,22 +794,6 @@
                     <button class="modal-btn btn-ok" id="closeQrModal">Okay</button>
                 </div>
             </div>
-        </div>
-
-        <!-- Graphical View Toggle Switch (3 Lines on Left, 2x2 Grid on Right) -->
-        <div class="toggle-section">
-            <!-- 3 Horizontal Lines Icon (Left - List View) -->
-            <span class="toggle-icon">
-                <svg viewBox="0 0 24 24"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
-            </span>
-            <label class="toggle-switch">
-                <input type="checkbox" id="viewToggle" checked> <!-- Checked by default for Grid View on right -->
-                <span class="slider"></span>
-            </label>
-            <!-- 2x2 Grid Icon (Right - Grid View) -->
-            <span class="toggle-icon">
-                <svg viewBox="0 0 24 24"><path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/></svg>
-            </span>
         </div>
 
         <div class="content-grid">
@@ -902,6 +927,10 @@
 
             const pdfIframe = document.querySelector('.document-window iframe');
             const viewToggle = document.getElementById('viewToggle');
+            const mainContainer = document.querySelector('.main-container, .container');
+            const bannerWrapper = document.querySelector('.banner-wrapper');
+            const qrButton = document.getElementById('openQrModal');
+            const contentGrid = document.querySelector('.content-grid');
 
             // --- Banner Fading Carousel Script ---
             const banners = document.querySelectorAll('.site-banner');
@@ -917,7 +946,6 @@
             }
 
             // --- QR Code Modal Popup Script ---
-            const qrButton = document.getElementById('openQrModal');
             const qrModal = document.getElementById('qrModal');
             const closeQrModal = document.getElementById('closeQrModal');
             const copyBlurbBtn = document.getElementById('copyBlurbBtn');
@@ -952,16 +980,31 @@
                 });
             });
 
-            // --- View Switcher (Grid View Default vs List View) ---
-            viewToggle.addEventListener('change', function() {
-                if (this.checked) {
+            // --- Dynamic View Switcher & QR Button Placement Handler ---
+            function updateLayoutState() {
+                if (viewToggle.checked) {
+                    // Grid View: QR button sits right under the banner
                     document.body.classList.remove('mode-list');
                     document.body.classList.add('mode-grid');
+                    if (qrButton.parentNode !== mainContainer) {
+                        bannerWrapper.after(qrButton);
+                        qrButton.style.marginBottom = "0";
+                    }
                 } else {
+                    // List View: QR button moves below the links list and above video player
                     document.body.classList.remove('mode-grid');
                     document.body.classList.add('mode-list');
+                    if (qrButton.parentNode !== contentGrid) {
+                        contentGrid.insertBefore(qrButton, contentGrid.firstChild);
+                        qrButton.style.marginBottom = "1rem";
+                    }
                 }
-            });
+            }
+
+            // Initialize layout based on default checkbox state
+            updateLayoutState();
+
+            viewToggle.addEventListener('change', updateLayoutState);
 
             // --- Top Edge C9 Holiday Lights Generator & Resizer ---
             if (ENABLE_LIGHTS) {
