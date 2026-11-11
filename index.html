@@ -157,28 +157,190 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2rem;
+            gap: 1.5rem;
             z-index: 2;
         }
 
-        /* Banner Logo Wrapper */
+        /* Banner Logo Wrapper with Fading Slide Rotator */
         .banner-wrapper {
             width: 100%;
             display: flex;
             justify-content: center;
-            margin-top: 0.5rem;
+            margin-top: 0.25rem;
+            position: relative;
+            max-width: 340px;
+            height: 120px; /* Adjust based on banner aspect ratio */
         }
 
         .site-banner {
-            max-width: 340px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
             width: 80%;
+            max-width: 340px;
             height: auto;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
             filter: drop-shadow(0 0 25px var(--accent-glow));
-            transition: transform 0.3s ease;
+            pointer-events: none;
         }
 
-        .site-banner:hover {
-            transform: scale(1.02);
+        .site-banner.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* --- QR Code Share Button Banner --- */
+        .qr-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.65rem;
+            background: rgba(22, 32, 51, 0.85);
+            border: 1px solid rgba(0, 183, 255, 0.3);
+            padding: 0.65rem 1.25rem;
+            border-radius: 30px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transition: all 0.25s ease;
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+        }
+
+        .qr-button:hover {
+            background: rgba(30, 45, 71, 0.95);
+            border-color: rgba(0, 183, 255, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 183, 255, 0.2);
+        }
+
+        .qr-btn-text {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .qr-btn-img {
+            width: 24px;
+            height: 24px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        /* --- Modal Popup Bubble Window Styles --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7); /* Darkens background while keeping it partly visible */
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-card {
+            background: #111a33;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 1.75rem;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 183, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 1.25s;
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-content-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .modal-text-block {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        .modal-thumb {
+            width: 75px;
+            height: 75px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .modal-blurb-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 0.9rem;
+            font-size: 0.85rem;
+            color: #ffffff;
+            line-height: 1.4;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 0.65rem 1rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .btn-copy {
+            background: rgba(0, 183, 255, 0.2);
+            color: #00b7ff;
+            border: 1px solid rgba(0, 183, 255, 0.4);
+        }
+
+        .btn-copy:hover {
+            background: rgba(0, 183, 255, 0.35);
+        }
+
+        .btn-ok {
+            background: #00b7ff;
+            color: #0b1329;
+        }
+
+        .btn-ok:hover {
+            background: #33c5ff;
         }
 
         /* --- Graphical View Toggle Switch Styles --- */
@@ -360,7 +522,6 @@
             white-space: nowrap;
         }
 
-        /* 1:1 Aspect Ratio Image matching the width of the button with a side buffer border */
         .mode-grid .grid-card-image {
             display: block;
             width: 100%;
@@ -386,7 +547,6 @@
         .mode-grid .list-title-text { display: none; }
         .mode-grid .grid-button-text { display: inline; }
 
-        /* Grid blurb text: horizontally and vertically centered */
         .mode-grid .grid-blurb-text {
             display: flex;
             align-items: center;
@@ -559,9 +719,34 @@
     <div class="snow-container"></div>
 
     <main class="container">
-        <!-- Banner Logo Image -->
+        <!-- Fading Banner Logo Rotator -->
         <div class="banner-wrapper">
-            <img src="lightrides site banner.png" alt="LightRides" class="site-banner">
+            <img src="lightrides site banner.png" alt="LightRides Banner 1" class="site-banner active">
+            <img src="lightrides site banner 2.png" alt="LightRides Banner 2" class="site-banner">
+            <img src="lightrides site banner 3.png" alt="LightRides Banner 3" class="site-banner">
+        </div>
+
+        <!-- QR Code Share Button -->
+        <div class="qr-button" id="openQrModal">
+            <span class="qr-btn-text">Scanned a QR code on a pin or trade? Tap here to share!</span>
+            <img src="scanned qr button image.png" alt="QR Icon" class="qr-btn-img">
+        </div>
+
+        <!-- QR Code Info Modal (Pop-up Bubble Window) -->
+        <div class="modal-overlay" id="qrModal">
+            <div class="modal-card">
+                <div class="modal-content-row">
+                    <p class="modal-text-block">Thanks for scanning! Here is your quick info blurb to share with others or post online.</p>
+                    <img src="buttonimage1.png" alt="QR Pin Graphic" class="modal-thumb">
+                </div>
+                <div class="modal-blurb-box" id="qrBlurbText">
+                    I just scanned a LightRides collector pin! Check out their unique LED theme park ride models and holiday pins.
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn btn-copy" id="copyBlurbBtn">Copy Blurb</button>
+                    <button class="modal-btn btn-ok" id="closeQrModal">Okay to close</button>
+                </div>
+            </div>
         </div>
 
         <!-- Graphical View Toggle Switch (3 Lines on Left, 2x2 Grid on Right) -->
@@ -598,12 +783,11 @@
                     <span class="grid-blurb-text">A unique set of colorful and ornate pins to light up your holidays.</span>
                 </a>
                 
-                <!-- Button 2 (Etsy with Gift Box Icon) -->
+                <!-- Button 2 -->
                 <a href="https://amusementlabs.etsy.com" target="_blank" rel="noopener noreferrer" class="link-item">
                     <span class="grid-card-title">Etsy Store</span>
                     <img src="buttonimage2.png" alt="Etsy Store" class="grid-card-image">
                     <span class="btn-badge bg-etsy">
-                        <!-- Gift Box SVG Icon -->
                         <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.75-.5-.75C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1h-2.21l1.47-2.21c.23-.35.45-.79.74-.79zM9 4c.29 0 .51.44.74.79L11.21 6H9c-.55 0-1-.45-1-1s.45-1 1-1zm11 15H4v-2h16v2zm0-4H4V8h7v7h2V8h7v7z"/></svg>
                         <span class="list-title-text">Etsy Store</span>
                         <span class="grid-button-text">New models!</span>
@@ -710,9 +894,57 @@
             const ENABLE_LIGHTS = true; // Set to false to turn off holiday lights effect
             // ==========================================
 
-            const banner = document.querySelector('.site-banner');
             const pdfIframe = document.querySelector('.document-window iframe');
             const viewToggle = document.getElementById('viewToggle');
+
+            // --- Banner Fading Carousel Script ---
+            const banners = document.querySelectorAll('.site-banner');
+            let currentBannerIndex = 0;
+            const BANNER_INTERVAL_MS = 5000; // Change this value to adjust timing (e.g., 5000 = 5 seconds)
+
+            if (banners.length > 1) {
+                setInterval(() => {
+                    banners[currentBannerIndex].classList.remove('active');
+                    currentBannerIndex = (currentBannerIndex + 1) % banners.length;
+                    banners[currentBannerIndex].classList.add('active');
+                }, BANNER_INTERVAL_MS);
+            }
+
+            // --- QR Code Modal Popup Script ---
+            const qrButton = document.getElementById('openQrModal');
+            const qrModal = document.getElementById('qrModal');
+            const closeQrModal = document.getElementById('closeQrModal');
+            const copyBlurbBtn = document.getElementById('copyBlurbBtn');
+            const qrBlurbText = document.getElementById('qrBlurbText');
+
+            qrButton.addEventListener('click', () => {
+                qrModal.classList.add('active');
+            });
+
+            closeQrModal.addEventListener('click', () => {
+                qrModal.classList.remove('active');
+            });
+
+            // Close modal when clicking on the dark background overlay
+            qrModal.addEventListener('click', (e) => {
+                if (e.target === qrModal) {
+                    qrModal.classList.remove('active');
+                }
+            });
+
+            // Copy Blurb Functionality
+            copyBlurbBtn.addEventListener('click', () => {
+                const textToCopy = qrBlurbText.textContent.trim();
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    const originalText = copyBlurbBtn.textContent;
+                    copyBlurbBtn.textContent = 'Copied!';
+                    setTimeout(() => {
+                        copyBlurbBtn.textContent = originalText;
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy text: ', err);
+                });
+            });
 
             // --- View Switcher (Grid View Default vs List View) ---
             viewToggle.addEventListener('change', function() {
@@ -780,17 +1012,6 @@
                 }
             } else {
                 document.querySelector('.snow-container').style.display = 'none';
-            }
-
-            // Image Fallback Handling
-            if (banner) {
-                banner.onerror = function() {
-                    this.style.display = 'none';
-                    const fallbackTitle = document.createElement('h1');
-                    fallbackTitle.textContent = 'LightRides';
-                    fallbackTitle.style.marginBottom = '1rem';
-                    document.body.insertBefore(fallbackTitle, document.querySelector('.content-grid'));
-                };
             }
 
             // PDF Fallback Check
